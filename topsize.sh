@@ -23,8 +23,14 @@ for arg in "$@" ; do
 	then 	
 		if [ $s = '1' ] ;
 		then	
-			minsize=$arg
-			s='0'
+			if [[ $arg =~ ^[0-9]+$ ]];
+			then
+				minsize=$arg
+				s='0'
+			else
+				echo 'Error: wrong format for minsize'>&2
+				exit 1
+			fi
 
 		elif [ $arg = '-s' ] ;
 		then
