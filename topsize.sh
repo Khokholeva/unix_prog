@@ -48,8 +48,8 @@ for arg in "$@" ; do
 		fi
 	fi
 done
-echo 'minsize is '$minsize
-echo 'N is '$N
+#echo 'minsize is '$minsize
+#echo 'N is '$N
 directs="0"
 opt="0"
 for arg in "$@" ; do
@@ -68,17 +68,22 @@ for arg in "$@" ; do
 		then
 			new_dir=$arg
 			directs='1'
-			echo $new_dir
+			#echo $new_dir
+			find -size +$minsize'c' -printf '%s %P\n'
 		fi
+			
 	else
 		new_dir=$arg
 		directs='1'
-		echo $new_dir
+		#echo $new_dir
+		find -size +$minsize'c' -printf '%s %P\n'
 	fi
 done
 if [ $directs = "0" ] ;
 then
-	echo $PWD
+	#echo $PWD
+	find -size +$minsize'c' -printf '%s %P\n'
+	
 fi
 
 
