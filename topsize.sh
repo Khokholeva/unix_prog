@@ -48,6 +48,11 @@ for arg in "$@" ; do
 		fi
 	fi
 done
+if [ $s = 1 ] ;
+then
+echo 'Error: no minsize given'>&2
+exit 1
+fi
 #echo 'minsize is '$minsize
 #echo 'N is '$N
 directs="0"
@@ -71,9 +76,9 @@ for arg in "$@" ; do
 			#echo $new_dir
 			if [ $N = 'all' ] ;
 			then 
-				find -size +$minsize'c' -printf '%s %P\n' | sort -r -n
+				find $new_dir -size +$minsize'c' -type f  -printf '%s %P\n' | sort -r -n
 			else
-				find -size +$minsize'c' -printf '%s %P\n' | sort -r -n | head $N
+				find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'   | sort -r -n | head $N
 			fi
 		fi
 			
@@ -81,7 +86,12 @@ for arg in "$@" ; do
 		new_dir=$arg
 		directs='1'
 		#echo $new_dir
-		find -size +$minsize'c' -printf '%s %P\n'
+		if [ $N = 'all' ] ;
+		then 
+			find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n
+		else
+			find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
+		fi
 	fi
 done
 if [ $directs = "0" ] ;
@@ -89,9 +99,9 @@ then
 	#echo $PWD
 	if [ $N = 'all' ] ;
 	then 
-		find -size +$minsize'c' -printf '%s %P\n' | sort -r -n
+		find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n
 	else
-		find -size +$minsize'c' -printf '%s %P\n' | sort -r -n | head $N
+		find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
 	fi
 	
 	
