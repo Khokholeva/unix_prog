@@ -40,7 +40,7 @@ for arg in "$@" ; do
 			h="1"
 		elif [[ $arg =~ ^-[0-9]+$ ]] ;
 		then
-			N=${arg:1}
+			N=$arg
 		elif [ ${arg:0:1} = "-" ] ;
 		then
 			echo "Error: no option $arg">&2
@@ -69,7 +69,12 @@ for arg in "$@" ; do
 			new_dir=$arg
 			directs='1'
 			#echo $new_dir
-			find -size +$minsize'c' -printf '%s %P\n'
+			if [ $N = 'all' ] ;
+			then 
+				find -size +$minsize'c' -printf '%s %P\n' | sort -r -n
+			else
+				find -size +$minsize'c' -printf '%s %P\n' | sort -r -n | head $N
+			fi
 		fi
 			
 	else
@@ -82,7 +87,13 @@ done
 if [ $directs = "0" ] ;
 then
 	#echo $PWD
-	find -size +$minsize'c' -printf '%s %P\n'
+	if [ $N = 'all' ] ;
+	then 
+		find -size +$minsize'c' -printf '%s %P\n' | sort -r -n
+	else
+		find -size +$minsize'c' -printf '%s %P\n' | sort -r -n | head $N
+	fi
+	
 	
 fi
 
