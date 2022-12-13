@@ -74,11 +74,21 @@ for arg in "$@" ; do
 			new_dir=$arg
 			directs='1'
 			#echo $new_dir
-			if [ $N = 'all' ] ;
-			then 
-				find $new_dir -size +$minsize'c' -type f  -printf '%s %P\n' | sort -r -n
+			if [ $h = '0' ];
+			then
+				if [ $N = 'all' ] ;
+				then 
+					find $new_dir -size +$minsize'c' -type f  -printf '%s %P\n' | sort -r -n
+				else
+					find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'   | sort -r -n | head $N
+				fi
 			else
-				find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'   | sort -r -n | head $N
+				if [ $N = 'all' ] ;
+				then 
+					find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n 
+				else
+					find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
+				fi	
 			fi
 		fi
 			
@@ -86,25 +96,43 @@ for arg in "$@" ; do
 		new_dir=$arg
 		directs='1'
 		#echo $new_dir
-		if [ $N = 'all' ] ;
-		then 
-			find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n
+		if [ $h = '0' ];
+		then
+			if [ $N = 'all' ] ;
+			then 
+				find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n
+			else
+				find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
+			fi
 		else
-			find $new_dir -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
+			if [ $N = 'all' ] ;
+			then 
+				find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n 
+			else
+				find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
+			fi	
 		fi
 	fi
 done
 if [ $directs = "0" ] ;
 then
 	#echo $PWD
-	if [ $N = 'all' ] ;
-	then 
-		find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n
+	if [ $h = '0' ];
+	then
+		if [ $N = 'all' ] ;
+		then 
+			find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n 
+		else
+			find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
+		fi	
 	else
-		find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
+		if [ $N = 'all' ] ;
+		then 
+			find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n 
+			
+		else
+			find -size +$minsize'c' -type f -printf '%s %P\n'  | sort -r -n | head $N
+				
+		fi	
 	fi
-	
-	
 fi
-
-
